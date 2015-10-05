@@ -1,4 +1,12 @@
 <h1>SoundCloud Test Page</h1>
+<%= form_tag '/' do %>
+<%= text_field_tag :genre%>
+<%= submit_tag "get songs"%>
+<%end%>
+<br>
+<input type="number" id="minutes"/>
+<br>
+<br>
 
 <%= audio_tag @tracks[0], autoplay: false, controls: true, id: 'audio' %>
 
