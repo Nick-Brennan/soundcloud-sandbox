@@ -6,11 +6,13 @@
 <%end%>
 <br>
 
+<!-- <a href="#" id="audioControl">pause!</a> -->
+
 <%= audio_tag @tracks[0], autoplay: false, controls: true, id: 'audio' %>
 <%=form_tag '/update' do%>
 	<ul id="playlist">
 		<% @tracks.each_with_index do |track, index|%>
-		<li><%=link_to @names[index], track%><%=check_box_tag index, index%></li>
+		<li><%=link_to @names[index], track%><%=check_box_tag @indices[index], @indices[index]%></li>
 		<%end%>
     </ul>
     <%= submit_tag "update list"%>
@@ -62,4 +64,25 @@ function run(link, player){
         audio[0].load();
         audio[0].play();
 }
+
+var yourAudio = document.getElementById('audio'),
+    ctrl = document.getElementById('audioControl');
+
+ctrl.onclick = function () {
+
+    // Update the Button
+    var pause = ctrl.innerHTML === 'pause!';
+    ctrl.innerHTML = pause ? 'play!' : 'pause!';
+
+    // Update the Audio
+    var method = pause ? 'pause' : 'play';
+    yourAudio[method]();
+
+    // Prevent Default Action
+    return false;
+};
+
 </script>
+
+
+
