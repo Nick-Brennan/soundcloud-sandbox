@@ -9,12 +9,19 @@ class WelcomeController < ApplicationController
 
 
 	def index
+		@tracks = @@track_arr[0..@@limit]
+		@names = @@names_arr[0..@@limit]
+		@duration = @@duration
+		@genre = @@genre
+	end
+
+	def get_songs
 		@@track_arr = []
 		@@names_arr = []
+		@@duration = params[:minutes]
+		@@limit = params[:minutes].to_i / 4
+		@@genre = params[:genre]
 
-		if @@limit == 0
-			@@limit = 50
-		end
 
 		client = SoundCloud.new(client_id: 'b61acae9ab94159d1de902fdee787599')
 		tracks = client.get('/tracks', :genres => @@genre, :limit => 50)
@@ -27,17 +34,12 @@ class WelcomeController < ApplicationController
 				@@names_arr << track.title
 			end
 		end
-		@tracks = @@track_arr[0..@@limit]
-		@names = @@names_arr[0..@@limit]
-		@duration = @@duration
-		@genre = @@genre
+		redirect_to '/'
 	end
 
 	def search
-		@@duration = params[:minutes]
-		@@limit = params[:minutes].to_i / 4
-		@@genre = params[:genre]
-		redirect_to '/'
+
+
 	end
 
 	def update
