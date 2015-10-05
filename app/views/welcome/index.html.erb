@@ -1,7 +1,7 @@
 <h1>SoundCloud Test Page</h1>
 <%= form_tag '/' do %>
-<%= text_field_tag :genre, nil, placeholder: 'genre'%><br>
-<%= number_field_tag :minutes, 45%>
+<%= text_field_tag :genre, @genre%><br>
+<%= number_field_tag :minutes, @duration%>
 <%= submit_tag "get songs"%>
 <%end%>
 <br>
