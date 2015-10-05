@@ -1,20 +1,20 @@
 <h1>SoundCloud Test Page</h1>
 <%= form_tag '/' do %>
-<%= text_field_tag :genre%>
+<%= text_field_tag :genre, nil, placeholder: 'genre'%><br>
+<%= number_field_tag :minutes, 45%>
 <%= submit_tag "get songs"%>
 <%end%>
 <br>
-<input type="number" id="minutes"/>
-<br>
-<br>
 
 <%= audio_tag @tracks[0], autoplay: false, controls: true, id: 'audio' %>
-
+<%=form_tag '/update' do%>
 	<ul id="playlist">
 		<% @tracks.each_with_index do |track, index|%>
-		<li><%=link_to @names[index], track%></li>
+		<li><%=link_to @names[index], track%><%=check_box_tag index, index%></li>
 		<%end%>
     </ul>
+    <%= submit_tag "update list"%>
+<%end%>
 
 <!--we will probably want to move the js into its own file, but this was quick-->   
 <script>
@@ -22,6 +22,7 @@ var audio;
 var playlist;
 var tracks;
 var current;
+var urls = '';
 
 init();
 function init(){
@@ -47,6 +48,11 @@ function init(){
             link = playlist.find('a')[current];    
         }
         run($(link),audio[0]);
+    });
+
+    tracksArr = tracks.toArray();
+    tracksArr.forEach(function(url){
+        urls += url + ',';
     });
 }
 function run(link, player){
