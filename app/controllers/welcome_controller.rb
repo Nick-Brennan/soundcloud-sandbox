@@ -25,6 +25,7 @@ class WelcomeController < ApplicationController
 	def get_songs
 		@@track_arr = []
 		@@names_arr = []
+		@@active_indices = []
 		@@refresh_count = 1
 		@@duration = params[:minutes]
 		@@limit = params[:minutes].to_i / 4
@@ -64,6 +65,7 @@ class WelcomeController < ApplicationController
 				new_indices << val.to_i
 			end
 		end
+		p new_indices
 		needed = @@track_count - new_tracks.length
 		for i in 0...needed
 			new_tracks << @@track_arr[(@@track_count * @@refresh_count) + i]
@@ -73,6 +75,7 @@ class WelcomeController < ApplicationController
 		@@active_tracks = new_tracks
 		@@active_names = new_names
 		@@active_indices = new_indices
+		p @@active_indices
 		@@refresh_count += 1
 		redirect_to '/'
 	end

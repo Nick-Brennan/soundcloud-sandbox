@@ -12,7 +12,7 @@
 <%=form_tag '/update' do%>
 	<ul id="playlist">
 		<% @tracks.each_with_index do |track, index|%>
-		<li><%=link_to @names[index], track%><%=check_box_tag @indices[index], @indices[index]%></li>
+		<li><%=check_box_tag @indices[index], @indices[index]%><%=link_to @names[index], track%></li>
 		<%end%>
     </ul>
     <%= submit_tag "update list"%>
